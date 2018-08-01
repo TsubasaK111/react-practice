@@ -36,14 +36,21 @@ export default class App extends Component {
     });
   };
 
+  setCurrentView = () => {
+    this.setState({
+      currentView: "AllPhotos",
+    });
+    console.log(this.state)
+  };
+
   render() {
     // if (this.state.currentView === "AllPhotos") {
     //   return <div> {listObjects}</div>;
     // }
     return (
       <div className="app">
-        <Navbar currentView={this.state.currentView} />
-        {this.state.currentView === "AllPhotos" ? <AllPhotos /> : <SinglePhoto /> }
+        <Navbar changeView = {this.setCurrentView}/>
+        {/* {this.state.currentView === "AllPhotos" ? <AllPhotos /> : <SinglePhoto /> } */}
         <button onClick={this.getAllPhotos}>BUTTON</button>
         <div>{JSON.stringify(this.state.currentView)}</div> sup bros!
         <AllPhotos />
