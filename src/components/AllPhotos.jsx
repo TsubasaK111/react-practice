@@ -10,7 +10,7 @@ export default class AllPhotos extends Component {
   render() {
     return (
       <div className="imageBox" key="Sucks">
-        {this.props.photos.map((photo,i) => (
+        {this.props.photos.map((photo, i) => (
           <div className="imageCell" key={photo.Key}>
             <img
               className="image"

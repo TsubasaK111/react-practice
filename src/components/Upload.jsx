@@ -28,7 +28,7 @@ export default class Upload extends Component {
           onChange={this.getFile}
           ref={this.fileInput}
         />
-        <button onClick={this.focusFileInput}>upload</button>
+        <button className="button" onClick={this.focusFileInput}>upload</button>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Navbar from "./Navbar";
 import AllPhotos from "./AllPhotos";
-import SinglePhoto from "./SinglePhoto";
+import { SinglePhoto } from "./SinglePhoto";
 import { saveObject, listObjects, getSingleObject } from "../utils";
 
 import "../styles/styles.css";
@@ -13,7 +13,7 @@ export default class App extends Component {
     this.state = {
       currentView: "AllPhotos",
       photos: ["photo"],
-      selectedPhoto: "selectedPhoto",
+      selectedPhoto: 0,
     };
   }
 
@@ -53,19 +53,26 @@ export default class App extends Component {
 
   getPhotoIndex = (photo) => {
     const index = photo.target.getAttribute("index");
-    this.setState({ selectedPhoto: index });
+    this.setState({
+      selectedPhoto: index,
+      currentView: "SinglePhoto",
+    });
   };
 
   render() {
     return (
       <div className="app">
         <Navbar changeView={this.setCurrentView} uploadFile={this.uploadFile} />
-        {/* {this.state.currentView === "AllPhotos" ? <AllPhotos /> : <SinglePhoto /> } */}
-        <div>{JSON.stringify(this.state.currentView)}</div> sup bros!
-        <AllPhotos
-          photos={this.state.photos}
-          getPhotoIndex={this.getPhotoIndex}
-        />
+        <div>{JSON.stringify(this.state.currentView)}</div>
+        {this.state.currentView === "AllPhotos" ? (
+          <AllPhotos
+            photos={this.state.photos}
+            getPhotoIndex={this.getPhotoIndex}
+          />
+        ) : (
+          <SinglePhoto photo={this.state.photos[this.state.selectedPhoto]} />
+        )}
+        {/* <SinglePhoto photo={this.state.photos[0]} /> */}
       </div>
     );
   }

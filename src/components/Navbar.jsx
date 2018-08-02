@@ -10,7 +10,7 @@ export default class Navbar extends Component {
   render() {
     return (
       <div className="navbar">
-        <h1 onClick={this.props.changeView}>Title</h1>
+        <h1 className="navbar-header navText" onClick={this.props.changeView}>Title</h1>
         <Upload uploadFile={this.props.uploadFile} />
       </div>
     );
