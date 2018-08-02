@@ -44,7 +44,6 @@ export default class App extends Component {
     this.setState({
       currentView: "AllPhotos",
     });
-    console.log(this.state);
   };
 
   uploadFile = (file) => {
@@ -72,7 +71,6 @@ export default class App extends Component {
         ) : (
           <SinglePhoto photo={this.state.photos[this.state.selectedPhoto]} />
         )}
-        {/* <SinglePhoto photo={this.state.photos[0]} /> */}
       </div>
     );
   }
