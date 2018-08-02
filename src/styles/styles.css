@@ -6,13 +6,19 @@ body {
   color: blue;
 }
 
+.imageBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .imageCell {
-  display: inline;
-  margin: 10px;
+  /* display: inline; */
+  margin: 5px;
 }
 
 .image {
   cursor: pointer;
+  width:200px;
 }
 
 .single-photo {

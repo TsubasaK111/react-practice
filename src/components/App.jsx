@@ -29,10 +29,14 @@ export default class App extends Component {
 
   getAllPhotos = () => {
     listObjects().then((data) => {
+      const s3domain = "http://react.sprint.s3.amazonaws.com/";
       console.log(data);
-      this.setState({
-        photos: [...data],
+      const photos = data.map((photo) => {
+        const url = s3domain + photo.Key;
+        return { ...photo, url };
       });
+
+      this.setState({ photos });
     });
   };
 
@@ -40,20 +44,28 @@ export default class App extends Component {
     this.setState({
       currentView: "AllPhotos",
     });
-    console.log(this.state)
+    console.log(this.state);
+  };
+
+  uploadFile = (file) => {
+    saveObject(file);
+  };
+
+  getPhotoIndex = (photo) => {
+    const index = photo.target.getAttribute("index");
+    this.setState({ selectedPhoto: index });
   };
 
   render() {
-    // if (this.state.currentView === "AllPhotos") {
-    //   return <div> {listObjects}</div>;
-    // }
     return (
       <div className="app">
-        <Navbar changeView = {this.setCurrentView}/>
+        <Navbar changeView={this.setCurrentView} uploadFile={this.uploadFile} />
         {/* {this.state.currentView === "AllPhotos" ? <AllPhotos /> : <SinglePhoto /> } */}
-        <button onClick={this.getAllPhotos}>BUTTON</button>
         <div>{JSON.stringify(this.state.currentView)}</div> sup bros!
-        <AllPhotos />
+        <AllPhotos
+          photos={this.state.photos}
+          getPhotoIndex={this.getPhotoIndex}
+        />
       </div>
     );
   }
