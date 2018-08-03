@@ -17,7 +17,7 @@ import AllPhotos from "../components/AllPhotos";
 import Navbar from "../components/Navbar";
 import SinglePhoto from "../components/SinglePhoto";
 
-describe("The App component", () => {
+describe.only("The App component", () => {
   let componentDidMountSpy;
   let getSingleObjectSpy;
   let listObjectsSpy;

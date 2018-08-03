@@ -13,12 +13,20 @@ export default class App extends Component {
     this.state = {
       currentView: "AllPhotos",
       photos: ["photo"],
-      selectedPhoto: 0,
+      selectedPhoto: undefined,
     };
   }
 
   componentDidMount() {
-    this.getAllPhotos();
+    listObjects().then((data) => {
+      const s3domain = "http://react.sprint.s3.amazonaws.com/";
+      const photos = data.map((photo) => {
+        const url = s3domain + photo.Key;
+        return { ...photo, url };
+        // return getSingleObject(photo.Key);
+      });
+      this.setState({ photos });
+    });
   }
 
   setAllPhotos = () => {
@@ -47,7 +55,7 @@ export default class App extends Component {
     console.log(this.state);
   };
 
-  uploadFile = (file) => {
+  getPhotos = (file) => {
     saveObject(file);
   };
 
@@ -59,10 +67,14 @@ export default class App extends Component {
     });
   };
 
+  goHome = () => {
+    console.log("GO HOME");
+  }
+
   render() {
     return (
       <div className="app">
-        <Navbar changeView={this.setCurrentView} uploadFile={this.uploadFile} />
+        <Navbar getPhotos={this.setCurrentView} goHome={this.goHome} uploadFile={this.uploadFile} />
         <div>{JSON.stringify(this.state.currentView)}</div>
         {this.state.currentView === "AllPhotos" ? (
           <AllPhotos
