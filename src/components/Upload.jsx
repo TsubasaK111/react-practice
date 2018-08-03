@@ -8,15 +8,11 @@ export default class Upload extends Component {
     super(props);
     this.fileInput = React.createRef();
     this.focusFileInput = this.focusFileInput.bind(this);
-    this.getFile = this.getFile.bind(this);
+    // this.getFile = this.getFile.bind(this);
   }
 
   focusFileInput() {
     this.fileInput.current.click();
-  }
-
-  getFile(event) {
-    this.props.uploadFile(event.target.files[0]);
   }
 
   render() {
@@ -25,7 +21,7 @@ export default class Upload extends Component {
         <input
           type="file"
           id="fileInput"
-          onChange={this.getFile}
+          onChange={this.props.getPhotos}
           ref={this.fileInput}
         />
         <button className="button" onClick={this.focusFileInput}>upload</button>

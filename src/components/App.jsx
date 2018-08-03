@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Navbar from "./Navbar";
-import AllPhotos from "./AllPhotos";
+import { Navbar } from "./Navbar";
+import { AllPhotos } from "./AllPhotos";
 import { SinglePhoto } from "./SinglePhoto";
 import { saveObject, listObjects, getSingleObject } from "../utils";
 
@@ -23,22 +23,14 @@ export default class App extends Component {
       const photos = data.map((photo) => {
         const url = s3domain + photo.Key;
         return { ...photo, url };
-        // return getSingleObject(photo.Key);
       });
       this.setState({ photos });
     });
   }
 
-  setAllPhotos = () => {
-    this.setState({
-      currentView: "AllPhotos",
-    });
-  };
-
   getAllPhotos = () => {
     listObjects().then((data) => {
       const s3domain = "http://react.sprint.s3.amazonaws.com/";
-      console.log(data);
       const photos = data.map((photo) => {
         const url = s3domain + photo.Key;
         return { ...photo, url };
@@ -48,14 +40,8 @@ export default class App extends Component {
     });
   };
 
-  setCurrentView = () => {
-    this.setState({
-      currentView: "AllPhotos",
-    });
-    console.log(this.state);
-  };
-
-  getPhotos = (file) => {
+  getPhotos = (event) => {
+    const file = event.target.files[0];
     saveObject(file);
   };
 
@@ -68,13 +54,15 @@ export default class App extends Component {
   };
 
   goHome = () => {
-    console.log("GO HOME");
-  }
+    this.setState({
+      currentView: "AllPhotos",
+    });
+  };
 
   render() {
     return (
       <div className="app">
-        <Navbar getPhotos={this.setCurrentView} goHome={this.goHome} uploadFile={this.uploadFile} />
+        <Navbar getPhotos={this.getPhotos} goHome={this.goHome} />
         <div>{JSON.stringify(this.state.currentView)}</div>
         {this.state.currentView === "AllPhotos" ? (
           <AllPhotos
@@ -84,7 +72,6 @@ export default class App extends Component {
         ) : (
           <SinglePhoto photo={this.state.photos[this.state.selectedPhoto]} />
         )}
-        {/* <SinglePhoto photo={this.state.photos[0]} /> */}
       </div>
     );
   }
