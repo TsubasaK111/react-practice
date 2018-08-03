@@ -1,8 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
 import styles from "./styles/styles.css";
 import App from "./components/App.jsx";
+import { reducer } from "./models";
 
-// ReactDOM.render(<div>sup dudes!!!!!</div>, document.getElementById("root"));
-ReactDOM.render(<App />, document.getElementById("root"));
+export const store = createStore(reducer);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
