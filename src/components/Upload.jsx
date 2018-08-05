@@ -8,7 +8,6 @@ export default class Upload extends Component {
     super(props);
     this.fileInput = React.createRef();
     this.focusFileInput = this.focusFileInput.bind(this);
-    // this.getFile = this.getFile.bind(this);
   }
 
   focusFileInput() {

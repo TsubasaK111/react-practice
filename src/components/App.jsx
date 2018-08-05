@@ -11,11 +11,6 @@ import { connect } from "react-redux";
 class App extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   currentView: "AllPhotos",
-    //   photos: ["photo"],
-    //   selectedPhoto: undefined,
-    // };
   }
 
   componentDidMount() {
@@ -53,12 +48,6 @@ class App extends Component {
       currentView: "SinglePhoto",
     });
   };
-
-  // goHome = () => {
-  //   this.setState({
-  //     currentView: "AllPhotos",
-  //   });
-  // };
 
   render() {
     return (
